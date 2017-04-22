@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="utils/utils.js"></script>
+    <script src="models/Box.js"></script>
+    <script src="models/Grid.js"></script>
+    <script src="memories-app.js"></script>
+  </head>
+  <body ng-app="memories">
+    <div>
+      <label>Name:</label>
+      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+      <hr>
+      <h1>Hello {{yourName}}!</h1>
+    </div>
+    <style>
+      .grid td {
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+      }
+    </style>
+    <div ng-controller="gridController">
+      <table class="grid">
+        <tr ng-repeat="row in grid.cells">
+          <td ng-repeat="box in row">
+            {{box.toString()}}
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
