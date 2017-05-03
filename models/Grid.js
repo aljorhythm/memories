@@ -4,18 +4,18 @@ if(typeof module != 'undefined'){
 }
 /**
  * Represents a grid with same length and height
- * @param {*} rowSize number of rows for grid
- * @param {*} columnSize number of columns for grid
+ * @param {*} rowCount number of rows for grid
+ * @param {*} columnCount number of columns for grid
  */
 var Grid = class {
-    constructor(rowSize, columnSize){
-        if(arguments.length != 2 || rowSize < 1 || columnSize < 1){
+    constructor(rowCount, columnCount){
+        if(arguments.length != 2 || rowCount < 1 || columnCount < 1){
             throw "INVALID_GRID_SIZE"
         }
-        this.cells = new Array(rowSize)
-        for(var i = 0; i < rowSize; i++){
-            this.cells[i] = new Array(columnSize)
-            for(var j = 0; j < columnSize; j++){
+        this.cells = new Array(rowCount)
+        for(var i = 0; i < rowCount; i++){
+            this.cells[i] = new Array(columnCount)
+            for(var j = 0; j < columnCount; j++){
                 this.cells[i][j] = new Box()
             }
         }
@@ -26,17 +26,17 @@ var Grid = class {
     set cells(cells){
         this._cells = cells
     }
-    rowSize(){
+    get rowCount() {
         return this.cells.length
     }
-    columnSize(){
+    get columnCount() {
         return this.cells[0].length
     }
-    numberOfCells(){
-        return this.rowSize() * this.columnSize()
+    get numberOfCells() {
+        return this.rowCount * this.columnCount
     }
-    setCellValue(rowIndex, colIndex, value){
-        if(rowIndex < 0 || colIndex < 0 || rowIndex >= this.rowSize() || colIndex >= this.columnSize()){
+    setCellValue(rowIndex, colIndex, value) {
+        if(rowIndex < 0 || colIndex < 0 || rowIndex >= this.rowCount || colIndex >= this.columnCount){
             throw "INVALID_CELL_INDEX"
         }
         var getValue
@@ -46,7 +46,7 @@ var Grid = class {
         this.cells[rowIndex][colIndex].value = getValue()
         return this
     }
-    getNumberOfCellsWithValue(){
+    get numberOfCellsWithValue(){
         var count = 0;
         for(var i = 0; i < this.cells.length; i++){
             var row = this.cells[i]
@@ -58,12 +58,15 @@ var Grid = class {
     }
     randomFill(options){
         if(!options){
+            options = {}
+        }
+        if(!options['numberOfCells']){
             options['percentage'] = 0.2
         }
         if(options['percentage']){
-            options['numberOfCells'] = options['percentage'] * this.numberOfCells
+            options['numberOfCells'] = Math.floor(options['percentage'] * this.numberOfCells)
         }
-        var range = Utils.getRange(0, this.numberOfCells() - 1)
+        var range = Utils.getRange(0, this.numberOfCells - 1)
         var selectedCells = Utils.getRandomSubarray(range, options['numberOfCells'])
         selectedCells.forEach((cellIndex) => {
             var rowColIndex = this.getRowColumnFromCellIndex(cellIndex)
@@ -72,13 +75,13 @@ var Grid = class {
     }
     toString(){
         return this.cells.map((row) =>
-            '|' + row.map((box) => box.toString()).join('|') + '|'
+            '|' + row.map((box) => ' ' + box.toString() + ' ').join('|') + '|'
         ).join("\n")
     }
     getRowColumnFromCellIndex(cellIndex){
         return {
-            rowIndex : Math.floor(cellIndex / this.columnSize()),
-            columnIndex : Math.floor(cellIndex % this.columnSize())
+            rowIndex : Math.floor(cellIndex / this.columnCount),
+            columnIndex : Math.floor(cellIndex % this.columnCount)
         }
     }
 }

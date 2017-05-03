@@ -1,34 +1,70 @@
 <!doctype html>
 <html>
   <head>
+    <title>CAN YOU RECALL ...</title>
+    
+    <!-- external -->
     <script src="bower_components/angular/angular.js"></script>
+
+    <!-- internal -->
     <script src="utils/Utils.js"></script>
     <script src="models/Box.js"></script>
     <script src="models/Grid.js"></script>
+    <script src="models/Game.js"></script>
+
+    <!-- app ui -->
     <script src="memories-app.js"></script>
+
+    <!-- stylesheet -->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
   </head>
   <body ng-app="memories">
-    <div>
-      <label>Name:</label>
-      <input type="text" ng-model="yourName" placeholder="Enter a name here">
-      <hr>
-      <h1>Hello {{yourName}}!</h1>
+    <div class="container">
+      
+      <div ng-controller="splashController">
+        <form id="new-user-splash" ng-show="!service.userExists()" class="row flex-column-center" ng-submit="newUser()">
+          <h1>you are?</h1>
+          <input ng-model="username">
+        </form>
+        <div ng-show="service.userExists()">
+          <h1 class="center">I remember you {{username}},</h1>
+          <h1 class="center">CAN YOU REMEMBER ME?</h1>
+        </div>
+      </div>
+    
+      <div ng-show="userExists()" class="memories-grid-view" ng-controller="gridController">
+
+        <div class="row memories-grid-container">
+          <div class="memories-grid">
+            <div class="memories-grid-row" ng-repeat="row in grid.cells">
+              <div class="memories-grid-cell " ng-repeat="box in row">
+                <div class="{{box.value}}">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row flex-column-center">
+          <input class="small-int" type="number" min="2" max="20" ng-model="rowCount">
+          by
+          <input class="small-int" type="number" min="2" max="20" ng-model="columnCount">
+          
+          <input class="small-int" type="number" min="{{game.minNumberOfCellsWithValue}}" max="{{game.maxNumberOfCellsWithValue}}" ng-model="numberOfCellsWithValue">
+          <span>pieces of me</span>
+
+          <div class="row h2">
+            <button class="btn btn-info" ng-click="resetGame()">NEW GAME</button>
+          </div>
+        </div>
+        
+        <div class="row web-stats">
+          <!-- Start of SimpleHitCounter Code -->
+              <img src="http://simplehitcounter.com/hit.php?uid=2262596&f=16777215&b=0" border="0" height="18" width="83" alt="office cleaning in fort lauderdale">
+          <!-- End of SimpleHitCounter Code -->
+        </div>
     </div>
-    <style>
-      .grid td {
-        width: 20px;
-        height: 20px;
-        border: 1px solid black;
-      }
-    </style>
-    <div ng-controller="gridController">
-      <table class="grid">
-        <tr ng-repeat="row in grid.cells">
-          <td ng-repeat="box in row">
-            {{box.toString()}}
-          </td>
-        </tr>
-      </table>
-    </div>
+
   </body>
 </html>

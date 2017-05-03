@@ -25,6 +25,16 @@ var Utils = class{
         }
         return shuffled.slice(0, size)
     }
+    //http://stackoverflow.com/questions/2686855/is-there-a-javascript-function-that-can-pad-a-string-to-get-to-a-determined-leng
+    static pad(pad, str, toPadLeft) {
+        if (typeof str === 'undefined') 
+            return pad;
+        if (toPadLeft) {
+            return (pad + str).slice(-pad.length);
+        } else {
+            return (str + pad).substring(0, pad.length);
+        }
+    }
 }
 
 if(typeof module != "undefined") module.exports = Utils

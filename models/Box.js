@@ -13,7 +13,7 @@ var Box = class {
         this._value = value
     }
     toString() {
-        return typeof this.value == 'string' ? this.value : ' '
+        return typeof this.value == 'string' ? this.value : ''
     }
 }
 

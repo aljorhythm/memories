@@ -1,0 +1,113 @@
+body, html {
+    width: 100%;
+    font-family: nanumbrush;
+    height: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    height: 100%;
+    padding-top: 20%;
+    box-sizing: border-box;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 2%;
+}
+
+input.small-int {
+    width: 40px;
+}
+
+.flex-column-center {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/**
+NEW USER SPLASH
+**/
+
+#new-user-splash {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/**
+MEMORIES GRID
+**/
+
+/** sizing and positioning **/
+.memories-grid-view {
+    height: 70%;
+}
+
+.memories-grid-container {
+    height: 70%;
+}
+
+.memories-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+    justify-content: center;
+}
+
+.memories-grid-row {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+}
+
+.memories-grid .memories-grid-cell {
+    box-sizing: border-box;
+    display: flex;
+}
+
+.memories-grid .memories-grid-cell > div{
+    min-height: 20px;
+    min-width: 20px;
+}
+
+/** borders **/
+
+.memories-grid-row, .memories-grid-row .memories-grid-cell{
+    border-style: solid;
+    border-color: rgba(0,0,0,.3);
+}
+
+.memories-grid-row { 
+    border-width: 2px  0   0  0px;
+}
+
+.memories-grid-row .memories-grid-cell {
+    border-width:  0  0px 0px  2px;
+}
+
+.memories-grid-row .memories-grid-cell:last-child {
+    border-right-width:  2px;
+}
+
+.memories-grid-row:last-child {
+    border-bottom-width:  2px;
+}
+
+/** colors **/
+.memories-grid .memories-grid-cell .blue {
+    background-color: #2196F3;
+}
